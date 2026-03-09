@@ -29,13 +29,15 @@ export default function AnimatedBackground() {
       vx: number;
       vy: number;
       radius: number;
+      opacity: number;
 
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.radius = Math.random() * 1.5 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.2;
+        this.vy = (Math.random() - 0.5) * 0.2;
+        this.radius = Math.random() * 1.5 + 0.2;
+        this.opacity = Math.random() * 0.5 + 0.1;
       }
 
       update() {
@@ -50,7 +52,7 @@ export default function AnimatedBackground() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(129, 140, 248, 0.3)"; // indigo-400 with opacity
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
         ctx.fill();
       }
     }
@@ -59,7 +61,7 @@ export default function AnimatedBackground() {
       particles = [];
       if (prefersReducedMotion) return;
 
-      const particleCount = window.innerWidth < 768 ? 40 : 80;
+      const particleCount = window.innerWidth < 768 ? 60 : 150;
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
@@ -72,54 +74,38 @@ export default function AnimatedBackground() {
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          // Only draw lines for very close particles to create small constellations
+          if (distance < 80) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(129, 140, 248, ${0.1 - distance / 1500})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.05 - distance / 1600})`;
             ctx.stroke();
           }
         }
       }
     };
 
-    const drawGrid = () => {
-      const gridSize = 50;
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.02)";
-      ctx.lineWidth = 1;
-
-      for (let x = 0; x < canvas.width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-
-      for (let y = 0; y < canvas.height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
-    };
-
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw soft gradient mesh background
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height,
-      );
-      gradient.addColorStop(0, "#020617"); // slate-950
-      gradient.addColorStop(0.5, "#0f172a"); // slate-900
-      gradient.addColorStop(1, "#020617"); // slate-950
-      ctx.fillStyle = gradient;
+      // Draw very dark solid background like the screenshot
+      ctx.fillStyle = "#060b14";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      drawGrid();
+      // Subtle radial gradient in the center
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        0,
+        canvas.width / 2,
+        canvas.height / 2,
+        canvas.width / 1.5
+      );
+      gradient.addColorStop(0, "rgba(15, 23, 42, 0.4)"); // slate-900
+      gradient.addColorStop(1, "rgba(6, 11, 20, 0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       if (!prefersReducedMotion) {
         particles.forEach((p) => {
@@ -145,7 +131,6 @@ export default function AnimatedBackground() {
   return (
     <div className="fixed inset-0 w-full h-full pointer-events-none z-[-1]">
       <canvas ref={canvasRef} className="w-full h-full" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020617_100%)] opacity-80"></div>
     </div>
   );
 }

@@ -1,20 +1,66 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Mahir Singh Pawar - Personal Portfolio 🚀
 
-# Run and deploy your AI Studio app
+A futuristic, premium, and highly interactive personal portfolio website built to showcase my projects, experience, and skills. Designed with a focus on smooth animations, glassmorphism, and a modern dark-mode aesthetic.
 
-This contains everything you need to run your app locally.
+## ✨ Features
 
-View your app in AI Studio: https://ai.studio/apps/2dde9cda-f2f4-412e-91f7-2827fe26671c
+*   **Futuristic UI/UX:** Dark theme with glassmorphism, ambient glows, and gradient accents.
+*   **Interactive Animations:** Powered by Framer Motion for smooth page transitions, scroll reveals, and hover effects.
+*   **Dynamic Splash Screen:** An engaging initial load screen with animated rings and gradient typography.
+*   **Animated Background:** Custom canvas-based particle and grid background that reacts to the user's scroll and presence.
+*   **Fully Responsive:** Optimized for both desktop and mobile devices, ensuring a seamless experience everywhere.
+*   **Comprehensive Sections:** Hero, Projects, Experience, Achievements, Skills, Education, and Certifications.
 
-## Run Locally
+## 🛠️ Tech Stack
 
-**Prerequisites:**  Node.js
+*   **Framework:** [React 18](https://reactjs.org/)
+*   **Build Tool:** [Vite](https://vitejs.dev/)
+*   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+*   **Animations:** [Framer Motion](https://www.framer.com/motion/)
+*   **Icons:** [Lucide React](https://lucide.dev/)
 
+## 🚀 Getting Started
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+To run this project locally, follow these steps:
+
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Mahirpawar/Portfolio-Web.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd your-repo-name
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Development Server
+
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:3000`.
+
+### Building for Production
+
+```bash
+npm run build
+```
+This will generate the production-ready files in the `dist` directory.
+
+## 📫 Contact
+
+*   **Email:** mahirsinghpawar25@gmail.com
+*   **LinkedIn:** [Your LinkedIn Profile URL]
+*   **GitHub:** [https://github.com/Mahirpawar](https://github.com/Mahirpawar)
+
+---
+*Designed and built by Mahir Singh Pawar.*

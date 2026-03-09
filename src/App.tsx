@@ -14,6 +14,7 @@ import Education from "./components/Education";
 import Achievements from "./components/Achievements";
 import Certifications from "./components/Certifications";
 import Splash from "./components/Splash";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -39,9 +40,12 @@ export default function App() {
         <Achievements />
         <Projects />
         <Skills />
-        <Education />
-        <Certifications />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <Education />
+          <Certifications />
+        </div>
       </main>
+      <Footer />
     </div>
   );
 }

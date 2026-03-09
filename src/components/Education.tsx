@@ -9,41 +9,62 @@ export default function Education() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mb-12"
+        className="flex items-center gap-4 mb-8"
       >
-        <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+        <div className="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-400 border border-teal-500/20">
+          <GraduationCap size={24} />
+        </div>
+        <h2 className="text-3xl md:text-4xl font-display font-bold text-white">
           Education
         </h2>
-        <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full"></div>
       </motion.div>
 
-      <div className="space-y-6">
-        {resumeData.education.map((edu, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="flex gap-6 p-8 rounded-3xl bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-indigo-500/30 transition-all group hover:bg-slate-800/80"
-          >
-            <div className="shrink-0 mt-1">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:text-cyan-400 transition-all duration-300 shadow-inner border border-white/5">
-                <GraduationCap size={28} />
+      <div className="space-y-4">
+        {resumeData.education.map((edu, index) => {
+          // Extract year range from dates if possible for the badge
+          let yearBadge = edu.dates;
+          if (edu.dates.includes(" - ")) {
+            const parts = edu.dates.split(" - ");
+            const startYear = parts[0].split(" ").pop();
+            const endYear = parts[1].split(" ").pop();
+            if (startYear && endYear) {
+              yearBadge = `${startYear} - ${endYear}`;
+            }
+          }
+
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="relative p-6 rounded-2xl bg-[#0b1120] border border-white/5 hover:border-white/10 transition-all group"
+            >
+              <div className="flex justify-between items-start gap-4 mb-2">
+                <h3 className="text-lg font-bold text-white leading-snug pr-16">
+                  {edu.degree.split(",")[0]}
+                  {edu.degree.includes(",") && (
+                    <span className="block text-base font-normal text-slate-300 mt-1">
+                      {edu.degree.split(",").slice(1).join(",").trim()}
+                    </span>
+                  )}
+                </h3>
+                <div className="absolute top-6 right-6 bg-slate-800/50 text-teal-400 text-xs font-medium px-2.5 py-1 rounded-md border border-white/5 whitespace-nowrap">
+                  {yearBadge}
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className="text-2xl font-display font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all">
-                {edu.institution}
-              </h3>
-              <p className="text-indigo-400 font-medium mt-2 text-lg">{edu.degree}</p>
-              <div className="flex items-center gap-4 text-sm text-slate-400 mt-3">
-                <span className="bg-white/5 px-3 py-1 rounded-md border border-white/5">{edu.dates}</span>
-                {edu.score && <span className="bg-indigo-500/10 text-indigo-300 px-3 py-1 rounded-md border border-indigo-500/20 font-medium">{edu.score}</span>}
-              </div>
-            </div>
-          </motion.div>
-        ))}
+              
+              <p className="text-slate-400 text-sm mb-4">{edu.institution}</p>
+              
+              {edu.score && (
+                <div className="inline-block bg-emerald-500/10 text-emerald-400 text-xs font-medium px-3 py-1 rounded-md border border-emerald-500/20">
+                  Score: {edu.score}
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

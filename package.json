@@ -1,5 +1,6 @@
 {
-  "name": "react-example",
+  "name": "mahir-singh-pawar-portfolio",
+  "description": "A futuristic, premium, and highly interactive personal portfolio website.",
   "private": true,
   "version": "0.0.0",
   "type": "module",
